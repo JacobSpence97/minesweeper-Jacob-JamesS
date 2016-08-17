@@ -69,4 +69,4 @@ quit: """).strip().lower()
 
     # check for a mine
     graygrid[y][x] = minegrid[y][x]
-    is_mine((minegrid[y][x]))
+    f = is_mine((minegrid[y][x]))
