@@ -8,6 +8,11 @@ def restart():
     ...
 
 
+# checks to see that input matches parameters
+def is_valid():
+    ...
+
+
 # check for a mine
 def is_mine(z):
 
