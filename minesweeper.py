@@ -9,8 +9,23 @@ def restart():
 
 
 # checks to see that input matches parameters
-def is_valid():
-    ...
+def is_valid(guess):
+    """ variable -> bool
+    If guess is valid, return True; else return False.
+    """
+    zeo1 = 0
+    zeo2 = 0
+    numlist = [1, 2, 3, 4]
+    if int(guess[0]) in numlist:
+        zeo1 = 5
+    if int(guess[1]) in numlist:
+        zeo2 = 5
+    if guess.amount() == 2:
+        zeo3 = ','
+    if (str(zeo1) + (str(zeo3)) + str(zeo2)) == '5,5':
+        return True
+    else:
+        return False
 
 
 # check for a mine
@@ -23,17 +38,17 @@ def is_mine(z):
         print('\n' * 30)
         for row in graygrid:
             print(row)
-        choose = input("Game Over. Type 'R' to restart, 'Q' to quit: ").strip(
-        ).lower()
+        while True:
+            choose = input(
+                "Game Over. Type 'R' to restart, 'Q' to quit: ").strip().lower(
+                )
 
-        # options
-        if choose == 'q':
-            f = False
-            return f
-        elif choose == 'r':
-            restart()
-        else:
-            is_mine(z)
+            # options
+            if choose == 'q':
+                f = False
+                return f
+            elif choose == 'r':
+                restart()
 
     # if it isn't a mine:
     else:
@@ -66,7 +81,7 @@ quit: """).strip().lower()
             restart()
         elif guess == "q":
             sys.exit()
-        elif is_valid(guess):
+        elif is_valid(guess) is True:
 
             # split input into a list
             guess = guess.split(',')
