@@ -13,19 +13,12 @@ def is_valid(guess):
     """ variable -> bool
     If guess is valid, return True; else return False.
     """
-    zeo1 = 0
-    zeo2 = 0
     numlist = [1, 2, 3, 4]
-    if int(guess[0]) in numlist:
-        zeo1 = 5
-    if int(guess[1]) in numlist:
-        zeo2 = 5
-    if guess.amount() == 2:
-        zeo3 = ','
-    if (str(zeo1) + (str(zeo3)) + str(zeo2)) == '5,5':
-        return True
-    else:
+    g = guess.split(',')
+    # makes sure the list isn't less or greater than 3 units long
+    if (len(guess) > 3) or (len(guess) < 3):
         return False
+    return (int(g[0]) in numlist) and (int(g[1]) in numlist)
 
 
 # check for a mine
@@ -40,8 +33,7 @@ def is_mine(z):
             print(row)
         while True:
             choose = input(
-                "Game Over. Type 'R' to restart, 'Q' to quit: ").strip().lower(
-                )
+                'Game Over. Type 'R' to restart, 'Q' to quit: ').strip().lower()
 
             # options
             if choose == 'q':
@@ -81,7 +73,7 @@ quit: """).strip().lower()
             restart()
         elif guess == "q":
             sys.exit()
-        elif is_valid(guess) is True:
+        elif is_valid(guess):
 
             # split input into a list
             guess = guess.split(',')
