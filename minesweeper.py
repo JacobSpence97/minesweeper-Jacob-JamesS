@@ -4,7 +4,10 @@ def restart():
 
 def is_mine(z):
     if z == '*':
-        input("Game Over. Type 'R' to restart, 'Q' to quit:")
+        choose = input("Game Over. Type 'R' to restart, 'Q' to quit: ").strip(
+        ).lower()
+        if choose == 'q':
+            return False
     else:
         return True
 
@@ -21,11 +24,14 @@ while True:
 
     guess = input(
         """Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to
-         quit:""").strip().lower().split(',')
+quit: """).strip().lower().split(',')
     if guess == "r":
         restart()
     elif guess == "q":
         break
 
-    graygrid[guess[1]][guess[0]] = minegrid[guess[1]][guess[0]]
-    is_mine((minegrid[guess[1]][guess[0]]))
+    x = (int(guess[0]) - 1)
+    y = (int(guess[1]) - 1)
+
+    graygrid[y][x] = minegrid[y][x]
+    is_mine((minegrid[y][x]))
