@@ -32,8 +32,8 @@ def is_mine(z):
         for row in graygrid:
             print(row)
         while True:
-            choose = input(
-                'Game Over. Type 'R' to restart, 'Q' to quit: ').strip().lower()
+            choose = input('Game Over. Type '
+                           '"R" to restart, "Q" to quit: ').strip().lower()
 
             # options
             if choose == 'q':
