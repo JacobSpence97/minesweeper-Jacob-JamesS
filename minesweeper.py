@@ -1,3 +1,4 @@
+import sys
 # set f to True
 f = True
 
@@ -49,23 +50,26 @@ while f is True:
     for row in graygrid:
         print(row)
 
-    # show instructions
-    guess = input(
-        """Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to
+    while True:
+        # show instructions
+        guess = input(
+            """Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to
 quit: """).strip().lower()
 
-    # options
-    if guess == "r":
-        restart()
-    elif guess == "q":
-        break
+        # options
+        if guess == "r":
+            restart()
+        elif guess == "q":
+            sys.exit()
+        elif is_valid(guess):
 
-    # split input into a list
-    guess = guess.split(',')
+            # split input into a list
+            guess = guess.split(',')
 
-    # set x and y to be what user has input
-    x = (int(guess[0]) - 1)
-    y = (int(guess[1]) - 1)
+            # set x and y to be what user has input
+            x = (int(guess[0]) - 1)
+            y = (int(guess[1]) - 1)
+            break
 
     # check for a mine
     graygrid[y][x] = minegrid[y][x]
