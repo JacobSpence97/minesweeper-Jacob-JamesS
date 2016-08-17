@@ -4,9 +4,9 @@ def restart():
 
 def is_mine():
     if "" == '*':
-        return True
+        input("Game Over. Type 'R' to restart, 'Q' to quit:")
     else:
-        return False
+        return True
 
 
 while True:
@@ -19,7 +19,8 @@ while True:
     for row in graygrid:
         print(row)
 
-    guess = input()
+    guess = input(
+        "Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to quit:")
     if guess == "r":
         restart()
     elif guess == "q":
