@@ -8,6 +8,10 @@ def is_mine(z):
         ).lower()
         if choose == 'q':
             return False
+        elif choose == 'r':
+            restart()
+        else:
+            return False
     else:
         return True
 
