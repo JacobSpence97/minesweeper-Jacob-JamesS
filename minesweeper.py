@@ -33,6 +33,29 @@ def show_cell(cell):
     else:
         return str(cell)
 
+# ADD MINES TO EMPTY MINE FIELD
+while len(mine_locations) < mines:
+    row = R(0, 9)
+    col = R(0, 9)
+    mine_locations.add((row, col))
+    background[row][col] = 'M'
+
+for row in range(len(visible_grid)):
+    for col in range(len(visible_grid[row])):
+        if visible_grid[row][col] == "M":
+            continue
+        count = 0
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if row + i < 0 or row + i >= len(
+                        visible_grid) or col + j < 0 or col + j >= len(
+                            visible_grid[row]):
+                    break
+                elif visible_grid[row + i][col + j] == "M":
+                    count += 1
+
+        background[row][col] = count
+
 
 # checks to see that input matches parameters
 def is_valid(guess):
