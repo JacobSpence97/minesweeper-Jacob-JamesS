@@ -8,6 +8,32 @@ def restart():
     ...
 
 
+# map stuffs
+def show_grid(grid):
+    '''(grid) -> str
+    '''
+    return '\n'.join(map(show_row, grid))
+
+
+# map stuffs
+def show_row(row):
+    '''(cell) -> str
+    '''
+    return '|'.join(map(show_cell, row))
+
+
+# map stuffs
+def show_cell(cell):
+    '''(cell) -> str
+    '''
+    if cell is None:
+        return ' '
+    elif cell == '*':
+        return 'X'
+    else:
+        return str(cell)
+
+
 # checks to see that input matches parameters
 def is_valid(guess):
     """ variable -> bool
@@ -29,8 +55,7 @@ def is_mine(z):
 
         # print grid and game over
         print('\n' * 30)
-        for row in graygrid:
-            print(row)
+        print(show_grid(graygrid))
         while True:
             choose = input('Game Over. Type '
                            '"R" to restart, "Q" to quit: ').strip().lower()
@@ -68,8 +93,7 @@ while f is True:
 
     # show grid
     print('\n' * 30)
-    for row in graygrid:
-        print(row)
+    print(show_grid(graygrid))
 
     while True:
         # show instructions
