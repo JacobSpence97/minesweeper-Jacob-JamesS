@@ -13,7 +13,7 @@ def is_valid(guess):
     """ variable -> bool
     If guess is valid, return True; else return False.
     """
-    numlist = [1, 2, 3, 4]
+    numlist = [1, 2, 3, 4, 5, 6, 7, 8]
     g = guess.split(',')
     # makes sure the list isn't less or greater than 3 units long
     if (len(guess) > 3) or (len(guess) < 3):
@@ -48,11 +48,20 @@ def is_mine(z):
         return f
 
 # the true grid
-minegrid = [[1, 1, 1, 0], [1, '*', 1, 0], [1, 1, 1, 0], [0, 0, 0, 0]]
+minegrid = [[1, 1, 1, 0, 0, 0, 0, 0], [1, '*', 1, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 0], [1, '*', 1, 0, 0, 0, 0, 0],
+            [1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 
 # the grid you see at first
-graygrid = [[None, None, None, None], [None, None, None, None],
-            [None, None, None, None], [None, None, None, None]]
+graygrid = [[None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None],
+            [None, None, None, None, None, None, None, None]]
 
 # loop
 while f is True:
