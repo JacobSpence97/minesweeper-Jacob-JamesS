@@ -10,6 +10,16 @@ def restart():
     ...
 
 
+# checks to see if on board
+def in_bounds(r, c, grid):
+    return r >= 0 and r < len(grid) and c >= 0 and c < len(grid[r])
+
+
+# looks to see if it is a mine, in order to change others
+def check_if_mine(r, c, grid):
+    return grid[r][c] == '*'
+
+
 # map stuffs
 def show_grid(grid):
     '''(grid) -> str
@@ -49,7 +59,7 @@ def is_valid(guess):
     return (int(g[0]) in numlist) and (int(g[1]) in numlist)
 
 
-# check for a mine
+# check for a mine for game over
 def is_mine(z):
 
     # if it's a mine
@@ -103,18 +113,14 @@ while len(mine_locations) < mines:
 
 for row in range(len(graygrid)):
     for col in range(len(graygrid[row])):
-        if graygrid[row][col] == "X":
+        if minegrid[row][col] == "*":
             continue
         count = 0
         for i in range(-1, 2):
             for j in range(-1, 2):
-                if row + i < 0 or row + i >= len(
-                        graygrid) or col + j < 0 or col + j >= len(graygrid[
-                            row]):
-                    break
-                elif graygrid[row + i][col + j] == "*":
+                if in_bounds(row + i, col + j, minegrid) and check_if_mine(
+                        row + i, col + j, minegrid):
                     count += 1
-
         minegrid[row][col] = count
 
 # loop
