@@ -1,4 +1,5 @@
 import sys
+import random
 # set f to True
 f = True
 
@@ -9,6 +10,8 @@ def restart():
 
 
 # map stuffs
+
+
 def show_grid(grid):
     '''(grid) -> str
     '''
@@ -73,10 +76,10 @@ def is_mine(z):
         return f
 
 # the true grid
-minegrid = [[1, 1, 1, 0, 0, 0, 0, 0], [1, '*', 1, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0, 0, 0], [1, '*', 1, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
+minegrid = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 
 # the grid you see at first
 graygrid = [[None, None, None, None, None, None, None, None],
@@ -88,6 +91,18 @@ graygrid = [[None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None]]
 
+
+mines = 6
+mine_locations = set()
+
+while len(mine_locations) < mines:
+    row = random.randint(0, 7)
+    col = random.randint(0, 7)
+    mine_locations.add((row, col))
+    minegrid[row][col] = '*'
+
+for row in minegrid:
+    print(row)
 # loop
 while f is True:
 
