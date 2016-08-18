@@ -1,5 +1,6 @@
 import sys
-import random
+from random import randint as R
+
 # set f to True
 f = True
 
@@ -10,8 +11,6 @@ def restart():
 
 
 # map stuffs
-
-
 def show_grid(grid):
     '''(grid) -> str
     '''
@@ -35,29 +34,6 @@ def show_cell(cell):
         return 'X'
     else:
         return str(cell)
-
-# ADD MINES TO EMPTY MINE FIELD
-while len(mine_locations) < mines:
-    row = R(0, 9)
-    col = R(0, 9)
-    mine_locations.add((row, col))
-    background[row][col] = 'M'
-
-for row in range(len(visible_grid)):
-    for col in range(len(visible_grid[row])):
-        if visible_grid[row][col] == "M":
-            continue
-        count = 0
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                if row + i < 0 or row + i >= len(
-                        visible_grid) or col + j < 0 or col + j >= len(
-                            visible_grid[row]):
-                    break
-                elif visible_grid[row + i][col + j] == "M":
-                    count += 1
-
-        background[row][col] = count
 
 
 # checks to see that input matches parameters
@@ -114,18 +90,33 @@ graygrid = [[None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None]]
 
-
-mines = 6
+# give mines
+mines = 10
 mine_locations = set()
 
+# add mines to empty mine field
 while len(mine_locations) < mines:
-    row = random.randint(0, 7)
-    col = random.randint(0, 7)
+    row = R(0, 7)
+    col = R(0, 7)
     mine_locations.add((row, col))
     minegrid[row][col] = '*'
 
-for row in minegrid:
-    print(row)
+for row in range(len(graygrid)):
+    for col in range(len(graygrid[row])):
+        if graygrid[row][col] == "X":
+            continue
+        count = 0
+        for i in range(-1, 2):
+            for j in range(-1, 2):
+                if row + i < 0 or row + i >= len(
+                        graygrid) or col + j < 0 or col + j >= len(graygrid[
+                            row]):
+                    break
+                elif graygrid[row + i][col + j] == "*":
+                    count += 1
+
+        minegrid[row][col] = count
+
 # loop
 while f is True:
 
