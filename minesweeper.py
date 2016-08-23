@@ -1,14 +1,6 @@
 import sys
 from random import randint as R
 
-# set f to True
-f = True
-
-
-# restarts the program
-def restart():
-    ...
-
 
 # checks to see if on board
 def in_bounds(r, c, grid):
@@ -60,7 +52,7 @@ def is_valid(guess):
 
 
 # check for a mine for game over
-def is_mine(z):
+def is_mine(z, graygrid):
 
     # if it's a mine
     if z == '*':
@@ -74,83 +66,90 @@ def is_mine(z):
 
             # options
             if choose == 'q':
-                f = False
-                return f
+                sys.exit()
             elif choose == 'r':
-                restart()
+                game()
 
     # if it isn't a mine:
     else:
         f = True
         return f
 
-# the true grid
-minegrid = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 
-# the grid you see at first
-graygrid = [[None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None],
-            [None, None, None, None, None, None, None, None]]
+def game():
 
-# give mines
-mines = 10
-mine_locations = set()
+    # set f to True
+    f = True
+    # the true grid
+    minegrid = [[0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]]
 
-# add mines to empty mine field
-while len(mine_locations) < mines:
-    row = R(0, 7)
-    col = R(0, 7)
-    mine_locations.add((row, col))
-    minegrid[row][col] = '*'
+    # the grid you see at first
+    graygrid = [[None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None],
+                [None, None, None, None, None, None, None, None]]
 
-for row in range(len(graygrid)):
-    for col in range(len(graygrid[row])):
-        if minegrid[row][col] == "*":
-            continue
-        count = 0
-        for i in range(-1, 2):
-            for j in range(-1, 2):
-                if in_bounds(row + i, col + j, minegrid) and check_if_mine(
-                        row + i, col + j, minegrid):
-                    count += 1
-        minegrid[row][col] = count
+    # give mines
+    mines = 10
+    mine_locations = set()
 
-# loop
-while f is True:
+    # add mines to empty mine field
+    while len(mine_locations) < mines:
+        row = R(0, 7)
+        col = R(0, 7)
+        mine_locations.add((row, col))
+        minegrid[row][col] = '*'
 
-    # show grid
-    print('\n' * 30)
-    print(show_grid(graygrid))
+    for row in range(len(graygrid)):
+        for col in range(len(graygrid[row])):
+            if minegrid[row][col] == "*":
+                continue
+            count = 0
+            for i in range(-1, 2):
+                for j in range(-1, 2):
+                    if in_bounds(row + i, col + j, minegrid) and check_if_mine(
+                            row + i, col + j, minegrid):
+                        count += 1
+            minegrid[row][col] = count
 
-    while True:
-        # show instructions
-        guess = input(
-            """Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to
+    # loop
+    while f is True:
+
+        # show grid
+        print('\n' * 30)
+        print(show_grid(graygrid))
+
+        while True:
+            # show instructions
+            guess = input(
+                """Give X and Y coordinates (x, y). Type 'R' to restart, 'Q' to
 quit: """).strip().lower()
 
-        # options
-        if guess == "r":
-            restart()
-        elif guess == "q":
-            sys.exit()
-        elif is_valid(guess):
+            # options
+            if guess == "r":
+                game()
+            elif guess == "q":
+                sys.exit()
+            elif is_valid(guess):
 
-            # split input into a list
-            guess = guess.split(',')
+                # split input into a list
+                guess = guess.split(',')
 
-            # set x and y to be what user has input
-            x = (int(guess[0]) - 1)
-            y = (int(guess[1]) - 1)
-            break
+                # set x and y to be what user has input
+                x = (int(guess[0]) - 1)
+                y = (int(guess[1]) - 1)
+                break
 
-    # check for a mine
-    graygrid[y][x] = minegrid[y][x]
-    f = is_mine((minegrid[y][x]))
+        # check for a mine
+        graygrid[y][x] = minegrid[y][x]
+        f = is_mine((minegrid[y][x]), graygrid)
+
+
+game()
