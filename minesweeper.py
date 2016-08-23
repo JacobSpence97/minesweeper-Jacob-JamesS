@@ -13,8 +13,8 @@ def check_if_mine(r, c, grid):
 
 
 def show_all_mines(minegrid, graygrid):
-    for row in minegrid:
-        for col in row:
+    for row in range(len(minegrid)):
+        for col in range(len(minegrid[row])):
             if minegrid[row][col] == "*":
                 graygrid[row][col] = "*"
 
