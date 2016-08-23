@@ -12,6 +12,13 @@ def check_if_mine(r, c, grid):
     return grid[r][c] == '*'
 
 
+def show_all_mines(minegrid, graygrid):
+    for row in minegrid:
+        for col in row:
+            if minegrid[row][col] == "*":
+                graygrid[row][col] = "*"
+
+
 # map stuffs
 def show_grid(grid):
     '''(grid) -> str
@@ -33,7 +40,7 @@ def show_cell(cell):
     if cell is None:
         return ' '
     elif cell == '*':
-        return 'X'
+        return '*'
     else:
         return str(cell)
 
@@ -52,13 +59,14 @@ def is_valid(guess):
 
 
 # check for a mine for game over
-def is_mine(z, graygrid):
+def is_mine(z, minegrid, graygrid):
 
     # if it's a mine
     if z == '*':
 
         # print grid and game over
         print('\n' * 30)
+        show_all_mines(minegrid, graygrid)
         print(show_grid(graygrid))
         while True:
             choose = input('Game Over. Type '
@@ -149,7 +157,7 @@ quit: """).strip().lower()
 
         # check for a mine
         graygrid[y][x] = minegrid[y][x]
-        f = is_mine((minegrid[y][x]), graygrid)
+        f = is_mine((minegrid[y][x]), minegrid, graygrid)
 
 
 game()
